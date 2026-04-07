@@ -82,17 +82,19 @@ A user submits a research query. The system runs it through a coordinated pipeli
 
 ---
 
-## Tech stack
+## Tech Stack
 
 | Layer | Tools |
 |---|---|
 | Language | Python 3.10+ |
-| LLM | OpenAI API (GPT-4o-mini / GPT-4o) |
-| Agent Framework | LangChain, LangGraph (planned) |
+| LLM | OpenAI (GPT-4o), Groq (LLaMA), Gemini, Hugging Face (configurable backend) |
+| Agent Framework | LangChain (tooling), LangGraph (planned orchestration) |
 | Research APIs | arXiv API, Semantic Scholar API |
-| Memory / RAG | ChromaDB, FAISS (planned) |
+| Memory / RAG | FAISS, ChromaDB (planned) |
+| Orchestration | Custom pipeline (Python), LangGraph (planned) |
 | API Layer | FastAPI (planned) |
 | Output | Structured JSON, Markdown |
+| Development | Jupyter Notebook (experimentation), Modular Python codebase |
 
 ---
 
@@ -103,20 +105,6 @@ A user submits a research query. The system runs it through a coordinated pipeli
 - Prompt engineering
 - Research automation
 - System architecture thinking
-
----
-
-## Roadmap
-
-| Phase | Status | Description |
-|---|---|---|
-| Core pipeline (Planner → Formatter) | 🟡 In progress | Notebook-first, then modularized |
-| Modular Python codebase | ⬜ Planned | Clean agent classes, config, logging |
-| Synthesis + Critic agents | ⬜ Planned | Cross-paper reasoning, self-refinement |
-| LangGraph orchestration | ⬜ Planned | Conditional routing, retry logic |
-| Memory layer (RAG) | ⬜ Planned | ChromaDB vector store for past queries |
-| Evaluation framework | ⬜ Planned | Metrics for summary quality and relevance |
-| REST API + UI | ⬜ Planned | FastAPI backend, Streamlit frontend |
 
 ---
 
@@ -131,7 +119,11 @@ pip install -r requirements.txt
 Create a `.env` file with your API keys:
 
 ```env
-GOOGLE_API_KEY=your_key_here
+# LLM Providers
+OPENAI_API_KEY=your_openai_key_here
+GROQ_API_KEY=your_groq_key_here
+GOOGLE_API_KEY=your_gemini_key_here
+HUGGINGFACE_API_KEY=your_hf_key_here
 ```
 
 Run the pipeline:
@@ -171,7 +163,10 @@ This system is intended for research assistance only. It does not replace expert
 ## Author
 
 **Bhoomika Goel**
-[bhoomikagoel24@gmail.com](mailto:bhoomikagoel24@gmail.com) · [GitHub](https://github.com/bhoomikagoel24) · [LinkedIn](https://www.linkedin.com/in/bhoomikagoel111/)
+ AI Systems & Software Engineering Practitioner  
+
+[![GitHub](https://img.shields.io/badge/GitHub-bhoomikagoel24-black?style=flat-square&logo=github)](https://github.com/bhoomikagoel24)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Bhoomika%20Goel-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bhoomikagoel111/)
 
 ---
 
