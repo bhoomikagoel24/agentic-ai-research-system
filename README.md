@@ -1,175 +1,165 @@
-# Agentic AI Research System
+<div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-0.2+-1C3C3C?style=flat&logo=chainlink&logoColor=white)
-![LangGraph](https://img.shields.io/badge/LangGraph-planned-6B46C1?style=flat)
-![Gemini](https://img.shields.io/badge/Gemini-API-0052CC?style=flat&logo=gemini&logoColor=white)
-![Status](https://img.shields.io/badge/Status-In%20Development-F59E0B?style=flat)
-![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=7C6AF7&height=200&section=header&text=Agentic%20Research%20Synthesis%20System&fontSize=32&fontColor=ffffff&fontAlignY=38&desc=Semi-Agentic%20%C2%B7%20Multi-Stage%20Reasoning%20%C2%B7%20Reliability-First%20Engineering&descAlignY=58&descSize=14&animation=fadeIn" />
 
-> An agentic AI system that mimics how a human researcher thinks, retrieves, analyzes, and synthesizes knowledge from scientific literature.
+<br/>
 
----
+[![Python](https://img.shields.io/badge/Python_3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://deepmind.google/gemini)
+[![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=chainlink&logoColor=white)](https://langchain.com)
+[![arXiv](https://img.shields.io/badge/arXiv_API-B31B1B?style=for-the-badge&logoColor=white)](https://arxiv.org)
+[![Semantic Scholar](https://img.shields.io/badge/Semantic_Scholar-097AE9?style=for-the-badge&logoColor=white)](https://api.semanticscholar.org)
 
-## What this is
+[![LangGraph](https://img.shields.io/badge/LangGraph-planned-6B46C1?style=flat-square)](https://langchain-ai.github.io/langgraph)
+[![ChromaDB](https://img.shields.io/badge/ChromaDB-RAG_planned-22C55E?style=flat-square)]()
+[![FastAPI](https://img.shields.io/badge/FastAPI-UI_planned-009688?style=flat-square&logo=fastapi&logoColor=white)]()
+[![Status](https://img.shields.io/badge/Status-Active_Development-F59E0B?style=flat-square)]()
+[![License](https://img.shields.io/badge/License-MIT-7C6AF7?style=flat-square)](LICENSE)
 
-Most research tools stop at summarization. This system goes further — it reasons across multiple papers, compares methodologies, identifies research gaps, and produces a structured report that reflects actual analytical thinking.
+<br/>
 
-The architecture is built around the idea that **complex research tasks require coordinated agent workflows**, not a single LLM prompt. Each agent in the pipeline has a specific responsibility, and the system can critique and refine its own outputs before finalizing a result.
+> **Beyond RAG. Beyond summarization. Toward grounded, cross-paper analytical reasoning.**
 
----
+<br/>
 
-## 🚀 What Makes This Different
+**[→ Full Visual Documentation & Architecture](https://bhoomikagoel24.github.io/agentic-ai-research-system)**
 
-Unlike traditional RAG or summarization pipelines, this system:
-
-- Uses a Planner Agent for structured reasoning
-- Performs cross-paper synthesis (not isolated summaries)
-- Includes a Critic Agent for self-refinement
-- Mimics real research workflows end-to-end
+</div>
 
 ---
 
-## How it works
+## The Problem
 
-A user submits a research query. The system runs it through a coordinated pipeline of specialized agents:
+Literature review is not an information retrieval problem. It requires understanding **relationships across papers** — comparing methodologies, detecting contradictions, identifying trends, surfacing research gaps, and synthesizing findings into a coherent whole.
 
-### 🔁 System Flow
+Traditional LLM systems can summarize individual papers. They struggle with everything else. Single-prompt pipelines lose context across documents, overgeneralize from incomplete evidence, and produce outputs that are shallow and difficult to trust.
 
-**User Query**  
-↓  
-**Planner → Research → Filter → Summarize → Synthesize → Critic → Formatter**  
-↓  
-**Final Report**
+This system was built to address that.
 
 ---
 
-### 🛠 Agents and Roles
+## System Architecture
 
-| Agent | Role |
-|---|---|
-| **Planner** | Breaks the query into sub-questions and maps a retrieval strategy |
-| **Research** | Fetches papers from arXiv and Semantic Scholar, deduplicates results |
-| **Filter** | Scores relevance using LLM, weighted by citations & recency |
-| **Summarizer** | Extracts methodology, contributions, and limitations |
-| **Synthesis** | Performs cross-paper comparison and identifies research gaps |
-| **Critic** | Validates output quality, triggers targeted re-runs if needed |
-| **Formatter** | Produces final report in structured JSON and Markdown |
+<p align="center">
+  <img src="assets/architecture_preview.png" width="920" alt="System Architecture"/>
+</p>
+
+<p align="center">
+  <a href="assets/architecture_full.png"><b>View Full Architecture Diagram →</b></a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="https://bhoomikagoel24.github.io/agentic-ai-research-system"><b>Interactive Documentation →</b></a>
+</p>
 
 ---
 
-## Example output
+## What Each Agent Does
 
-```json
-{
-  "topic": "Pneumonia Detection using Deep Learning",
-  "methods": ["CNN-based classification", "Vision Transformer (ViT)", "Hybrid CNN-Transformer"],
-  "comparison": [
-    "CNNs offer faster inference, suitable for real-time deployment",
-    "Transformers achieve higher accuracy but require larger datasets"
-  ],
-  "research_gaps": [
-    "Limited work on multimodal approaches combining imaging with clinical notes",
-    "Most benchmarks use single-institution datasets — generalizability is unclear"
-  ],
-  "future_work": [
-    "Real-time edge deployment for low-resource clinical settings",
-    "Federated learning to address data privacy constraints"
-  ],
-  "summary": "Transformer-based models demonstrate strong diagnostic performance but face deployment barriers. Hybrid architectures show promise but remain underexplored."
-}
 ```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  01  Planner Agent       Query decomposition · Self-evaluation loop         │
+│  02  Research Agent      arXiv + Semantic Scholar · Adaptive expansion      │
+│  03  Filter + Rank       Relevance scoring · Recency weighting · Top-K      │
+│  04  Summarizer Agent    Structured extraction · Confidence calibration      │
+│  05  Synthesis Agent ★   Cross-paper reasoning · Gaps · Trends · Tradeoffs  │
+│  06  Critic Agent        Hallucination detection · Grounding evaluation      │
+│  07  Formatter Agent     Professional literature review generation           │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+The **Synthesis Agent** is the core intelligence layer — where the system transitions from information extraction to genuine knowledge synthesis. It reasons across all papers simultaneously, not independently.
+
+---
+
+## Sample Output
+
+### Comparative Method Analysis
+> Transformer-based models demonstrate stronger sequential reasoning for temporal forecasting, while GAN-based approaches address data scarcity but introduce distributional shift risks. Neither has been robustly benchmarked across market regimes.
+
+### Synthesized Research Insight
+> Financial AI is shifting toward multimodal, context-aware forecasting systems — but robustness, scalability, and interpretability remain major unresolved challenges. Most benchmarks are single-institution, limiting generalizability.
+
+### Research Gaps Identified
+> - No standardized evaluation benchmarks for LLM-based financial reasoning
+> - Underexplored multimodal fusion of price signals, text, and macroeconomic context
+> - Limited real-time deployment work under volatile market conditions
+
+---
+
+## Reliability Engineering
+
+> In multi-stage agentic pipelines, infrastructure reliability is as important as model quality.
+
+| Mechanism | What it does |
+|---|---|
+| **File-level caching** | Summaries persist to disk — re-runs skip computed stages entirely |
+| **Exponential backoff** | Randomized jitter on every retry — no API hammering under rate limits |
+| **Adaptive retrieval** | Queries expand dynamically when paper quality falls below threshold |
+| **State persistence** | Shared state accumulates across agents — any stage reruns independently |
+| **JSON validation** | Structured output validated at every stage before passing downstream |
+| **DEV_MODE** | Lightweight execution path for fast, low-cost development iteration |
 
 ---
 
 ## Tech Stack
 
-| Layer | Tools |
-|---|---|
-| Language | Python 3.10+ |
-| LLM | OpenAI (GPT-4o), Groq (LLaMA), Gemini, Hugging Face (configurable backend) |
-| Agent Framework | LangChain (tooling), LangGraph (planned orchestration) |
-| Research APIs | arXiv API, Semantic Scholar API |
-| Memory / RAG | FAISS, ChromaDB (planned) |
-| Orchestration | Custom pipeline (Python), LangGraph (planned) |
-| API Layer | FastAPI (planned) |
-| Output | Structured JSON, Markdown |
-| Development | Jupyter Notebook (experimentation), Modular Python codebase |
+<div align="center">
+
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)]()
+[![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=chainlink&logoColor=white)]()
+[![Google Gemini](https://img.shields.io/badge/Gemini_API-4285F4?style=flat-square&logo=google&logoColor=white)]()
+[![arXiv](https://img.shields.io/badge/arXiv_API-B31B1B?style=flat-square)]()
+[![Semantic Scholar](https://img.shields.io/badge/Semantic_Scholar-097AE9?style=flat-square)]()
+[![LangGraph](https://img.shields.io/badge/LangGraph-6B46C1?style=flat-square)]()
+[![ChromaDB](https://img.shields.io/badge/ChromaDB-22C55E?style=flat-square)]()
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)]()
+
+</div>
 
 ---
 
-## Skills Demonstrated
+## Known Limitations
 
-- Multi-agent system design
-- LLM orchestration
-- Prompt engineering
-- Research automation
-- System architecture thinking
+The system currently reasons over **abstracts**, not full papers — limiting deep experimental understanding. Retrieval is **lexical**, not semantic — conceptually similar papers with different terminology are under-recalled. The Critic Agent evaluates but does not yet **autonomously trigger refinement**. Evaluation metrics are heuristic rather than learned.
+
+These are known constraints — each maps directly to the next development phase.
 
 ---
 
-## Setup
+## What's Next
 
-```bash
-git clone https://github.com/bhoomikagoel24/agentic-ai-research-system.git
-cd agentic-ai-research-system
-pip install -r requirements.txt
 ```
-
-Create a `.env` file with your API keys:
-
-```env
-# LLM Providers
-OPENAI_API_KEY=your_openai_key_here
-GROQ_API_KEY=your_groq_key_here
-GOOGLE_API_KEY=your_gemini_key_here
-HUGGINGFACE_API_KEY=your_hf_key_here
-```
-
-Run the pipeline:
-
-```bash
-python main.py
+→  Semantic retrieval via embedding-based search
+→  Critic-driven refinement loop (Critic triggers Synthesis re-runs)
+→  Persistent knowledge memory — JSON/SQLite before vector DB
+→  Full-paper reasoning beyond abstract-only analysis
+→  LangGraph orchestration with conditional routing and retry nodes
+→  Quantitative evaluation framework for synthesis quality
+→  Citation-grounded synthesis with academic formatting
 ```
 
 ---
 
-## Why I built this
+## Design Philosophy
 
-I'm interested in AI systems that do more than wrap a model — specifically in how multi-agent architectures can handle tasks that require planning, retrieval, reasoning, and self-correction. This project is my attempt to build that end-to-end, grounded in real research retrieval rather than synthetic data.
+The architecture was built without heavy orchestration frameworks intentionally — to develop a deep understanding of state flow, retry logic, evaluation patterns, and agent interaction **before** abstracting them away.
 
-It reflects the kind of systems I want to work on: agentic, reasoning-first, and production-minded.
-
----
-
-## Development approach
-
-Each agent is implemented and tested independently in a Jupyter notebook before being converted to a modular Python class. The pipeline is assembled only after individual components are verified — this keeps debugging tractable and makes each component independently reusable.
+One realization: useful AI systems are not primarily about prompting. As systems scale, the hard problems become **orchestration**, **reliability**, **state management**, and **grounded reasoning** — as critical as model capability itself.
 
 ---
 
-## Contributing
-
-Contributions, issues, and feature requests are welcome. Feel free to open an issue or submit a pull request.
-
----
-
-## Disclaimer
-
-This system is intended for research assistance only. It does not replace expert judgment, peer review, or academic validation.
-
----
+<div align="center">
 
 ## Author
 
-**Bhoomika Goel**
- AI Systems & Software Engineering Practitioner  
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://bhoomika-ai-portfolio.vercel.app/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bhoomikagoel111)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/bhoomikagoel24)
+[![Email](https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:bhoomikagoel24@gmail.com)
 
-[![GitHub](https://img.shields.io/badge/GitHub-bhoomikagoel24-black?style=flat-square&logo=github)](https://github.com/bhoomikagoel24)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Bhoomika%20Goel-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bhoomikagoel111/)
+**Bhoomika Goel** · AI/ML Engineer · Agentic Systems · Research Automation
 
----
+<br/>
 
-## License
+<img src="https://capsule-render.vercel.app/api?type=waving&color=7C6AF7&height=100&section=footer" />
 
-This project is licensed under the [MIT License](LICENSE).
+</div>
