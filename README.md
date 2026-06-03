@@ -1,40 +1,43 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=7C6AF7&height=200&section=header&text=Agentic%20Research%20Synthesis%20System&fontSize=32&fontColor=ffffff&fontAlignY=38&desc=Semi-Agentic%20%C2%B7%20Multi-Stage%20Reasoning%20%C2%B7%20Reliability-First%20Engineering&descAlignY=58&descSize=14&animation=fadeIn" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=Agentic%20Research%20Synthesis%20System&fontSize=30&fontColor=ffffff&fontAlignY=38&desc=Multi-Agent%20%C2%B7%20Persistent%20Memory%20%C2%B7%20Cross-Paper%20Reasoning%20%C2%B7%20Reliability-First&descAlignY=57&descSize=13&animation=fadeIn" />
 
 <br/>
 
 [![Python](https://img.shields.io/badge/Python_3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://deepmind.google/gemini)
-[![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=chainlink&logoColor=white)](https://langchain.com)
-[![arXiv](https://img.shields.io/badge/arXiv_API-B31B1B?style=for-the-badge&logoColor=white)](https://arxiv.org)
-[![Semantic Scholar](https://img.shields.io/badge/Semantic_Scholar-097AE9?style=for-the-badge&logoColor=white)](https://api.semanticscholar.org)
+[![Groq](https://img.shields.io/badge/Groq_Fallback-F55036?style=for-the-badge&logoColor=white)](https://groq.com)
+[![ChromaDB](https://img.shields.io/badge/ChromaDB-Memory-22C55E?style=for-the-badge&logoColor=white)](https://www.trychroma.com)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 
+[![arXiv](https://img.shields.io/badge/arXiv_API-B31B1B?style=flat-square)](https://arxiv.org)
+[![Semantic Scholar](https://img.shields.io/badge/Semantic_Scholar-097AE9?style=flat-square)](https://api.semanticscholar.org)
 [![LangGraph](https://img.shields.io/badge/LangGraph-planned-6B46C1?style=flat-square)](https://langchain-ai.github.io/langgraph)
-[![ChromaDB](https://img.shields.io/badge/ChromaDB-RAG_planned-22C55E?style=flat-square)]()
-[![FastAPI](https://img.shields.io/badge/FastAPI-UI_planned-009688?style=flat-square&logo=fastapi&logoColor=white)]()
 [![Status](https://img.shields.io/badge/Status-Active_Development-F59E0B?style=flat-square)]()
 [![License](https://img.shields.io/badge/License-MIT-7C6AF7?style=flat-square)](LICENSE)
 
 <br/>
 
-> **Beyond RAG. Beyond summarization. Toward grounded, cross-paper analytical reasoning.**
+> *Beyond RAG. Beyond summarization.*
+> *Toward grounded, memory-persistent, cross-paper analytical reasoning.*
 
 <br/>
 
-**[→ Full Visual Documentation & Architecture](https://bhoomikagoel24.github.io/agentic-ai-research-system)**
+**[→ Full Visual Documentation](https://bhoomikagoel24.github.io/agentic-ai-research-system)**
+
+<br/>
 
 </div>
 
 ---
 
-## The Problem
+## What this is
 
-Literature review is not an information retrieval problem. It requires understanding **relationships across papers** — comparing methodologies, detecting contradictions, identifying trends, surfacing research gaps, and synthesizing findings into a coherent whole.
+Most research tools either retrieve and summarize — or rely on a single LLM prompt to do everything.
 
-Traditional LLM systems can summarize individual papers. They struggle with everything else. Single-prompt pipelines lose context across documents, overgeneralize from incomplete evidence, and produce outputs that are shallow and difficult to trust.
+This system does neither. It decomposes the research task into **specialized coordinated agents**, each with a focused responsibility. It introduces **persistent semantic memory** so the system remembers and reuses previous work across sessions. And it performs **cross-paper reasoning** — not just per-paper summarization — to surface trends, contradictions, gaps, and comparative insights that no single prompt could produce.
 
-This system was built to address that.
+The result is a research pipeline that gets meaningfully faster and more efficient with every run.
 
 ---
 
@@ -45,58 +48,114 @@ This system was built to address that.
 </p>
 
 <p align="center">
-  <a href="assets/architecture_full.png"><b>View Full Architecture Diagram →</b></a>
+  <a href="assets/architecture_full.png"><b>View Full Architecture →</b></a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="https://bhoomikagoel24.github.io/agentic-ai-research-system"><b>Interactive Documentation →</b></a>
 </p>
 
 ---
 
-## What Each Agent Does
+## Agent Pipeline
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  01  Planner Agent       Query decomposition · Self-evaluation loop         │
-│  02  Research Agent      arXiv + Semantic Scholar · Adaptive expansion      │
-│  03  Filter + Rank       Relevance scoring · Recency weighting · Top-K      │
-│  04  Summarizer Agent    Structured extraction · Confidence calibration      │
-│  05  Synthesis Agent ★   Cross-paper reasoning · Gaps · Trends · Tradeoffs  │
-│  06  Critic Agent        Hallucination detection · Grounding evaluation      │
-│  07  Formatter Agent     Professional literature review generation           │
-└─────────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  01  Planner Agent        Query decomposition · Self-evaluation loop         │
+│                           Memory reuse for similar past topics               │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  02  Research Agent       arXiv + Semantic Scholar · Adaptive expansion      │
+│                           Retry logic · Deduplication · Quality filtering    │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  03  Filter + Rank        Relevance scoring · Recency weighting · Top-K      │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  04  Summarizer Agent     Structured extraction · Confidence calibration     │
+│                           Semantic memory reuse · Summary caching            │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  05  Synthesis Agent  ★   Cross-paper reasoning · Trend & gap detection      │
+│                           Contradiction analysis · Comparative insights      │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  06  Critic Agent         Hallucination detection · Grounding evaluation     │
+│                           Reasoning depth scoring · Critique caching         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  07  Formatter Agent      Critique-guided report generation · Academic tone  │
+└──────────────────────────────────────────────────────────────────────────────┘
+                    ↕  Persistent Semantic Memory  ↕
+              ChromaDB · Sentence Transformers · Cosine Similarity
 ```
 
-The **Synthesis Agent** is the core intelligence layer — where the system transitions from information extraction to genuine knowledge synthesis. It reasons across all papers simultaneously, not independently.
+---
+
+## Memory Architecture
+
+This is one of the most important parts of the system. Every run that starts from scratch wastes tokens, time, and API quota. The system solves this with a **two-layer optimization strategy**.
+
+### Layer 1 — In-Session Cache
+
+Prevents redundant LLM and API calls within the same pipeline run.
+
+```
+Run pipeline → same synthesis requested again → cache hit → no LLM call
+```
+
+Covers: query cache · summary cache · critique cache · formatter cache
+
+### Layer 2 — Persistent Semantic Memory
+
+Built on ChromaDB and Sentence Transformers (`all-MiniLM-L6-v2`). Survives Streamlit restarts, terminal closes, and system reboots.
+
+```
+Today   → generate summary → close Streamlit
+Tomorrow → same topic → similarity search → memory reuse → no regeneration
+```
+
+Three memory stores run in parallel:
+
+| Store | Purpose |
+|---|---|
+| **Planner Memory** | Reuse past research plans for similar topics — stabilizes query generation |
+| **Paper Memory** | Semantic retrieval of previously fetched papers — reduces external API calls |
+| **Summary Memory** | If similarity > threshold → reuse existing summary · else → regenerate |
+
+---
+
+## Reasoning Capabilities
+
+The Synthesis Agent is the core intelligence layer — where the system transitions from information extraction to genuine knowledge synthesis.
+
+```
+Isolated summaries          →    Cross-paper reasoning
+Per-paper extraction        →    Trend detection across the literature
+Independent findings        →    Contradiction and agreement analysis
+Basic output                →    Research gap discovery + future directions
+```
 
 ---
 
 ## Sample Output
 
-### Comparative Method Analysis
-> Transformer-based models demonstrate stronger sequential reasoning for temporal forecasting, while GAN-based approaches address data scarcity but introduce distributional shift risks. Neither has been robustly benchmarked across market regimes.
+**Comparative Method Analysis**
+> Transformer-based models demonstrate stronger sequential reasoning for temporal forecasting, while GAN-based approaches address data scarcity but introduce distributional shift risks. Neither has been robustly benchmarked across volatile market regimes.
 
-### Synthesized Research Insight
-> Financial AI is shifting toward multimodal, context-aware forecasting systems — but robustness, scalability, and interpretability remain major unresolved challenges. Most benchmarks are single-institution, limiting generalizability.
+**Synthesized Research Insight**
+> Financial AI is shifting toward multimodal, context-aware forecasting systems — but robustness, scalability, and interpretability remain major unresolved challenges. Most benchmarks are single-institution, limiting generalizability claims.
 
-### Research Gaps Identified
-> - No standardized evaluation benchmarks for LLM-based financial reasoning
-> - Underexplored multimodal fusion of price signals, text, and macroeconomic context
-> - Limited real-time deployment work under volatile market conditions
+**Research Gaps Identified**
+> — No standardized evaluation benchmarks for LLM-based financial reasoning
+> — Underexplored multimodal fusion of price signals, text, and macroeconomic context
+> — Limited real-time deployment work under volatile market conditions
 
 ---
 
 ## Reliability Engineering
 
-> In multi-stage agentic pipelines, infrastructure reliability is as important as model quality.
-
-| Mechanism | What it does |
-|---|---|
-| **File-level caching** | Summaries persist to disk — re-runs skip computed stages entirely |
-| **Exponential backoff** | Randomized jitter on every retry — no API hammering under rate limits |
-| **Adaptive retrieval** | Queries expand dynamically when paper quality falls below threshold |
-| **State persistence** | Shared state accumulates across agents — any stage reruns independently |
-| **JSON validation** | Structured output validated at every stage before passing downstream |
-| **DEV_MODE** | Lightweight execution path for fast, low-cost development iteration |
+```
+Retry Logic          →  Exponential backoff with jitter on all LLM and API calls
+Query Expansion      →  Adaptive broadening when retrieval quality falls below threshold
+Fallback Routing     →  Auto-switches to Groq if Gemini fails
+State Persistence    →  Shared state dict — any stage reruns independently
+JSON Validation      →  Structured output validated at every stage
+Deduplication        →  URL-based + title similarity filtering
+DEV_MODE             →  Lightweight path for fast, low-cost experimentation
+```
 
 ---
 
@@ -104,14 +163,15 @@ The **Synthesis Agent** is the core intelligence layer — where the system tran
 
 <div align="center">
 
-[![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)]()
-[![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=chainlink&logoColor=white)]()
-[![Google Gemini](https://img.shields.io/badge/Gemini_API-4285F4?style=flat-square&logo=google&logoColor=white)]()
-[![arXiv](https://img.shields.io/badge/arXiv_API-B31B1B?style=flat-square)]()
-[![Semantic Scholar](https://img.shields.io/badge/Semantic_Scholar-097AE9?style=flat-square)]()
-[![LangGraph](https://img.shields.io/badge/LangGraph-6B46C1?style=flat-square)]()
-[![ChromaDB](https://img.shields.io/badge/ChromaDB-22C55E?style=flat-square)]()
-[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)]()
+| Layer | Stack |
+|---|---|
+| LLM | Gemini 2.5 Flash · Groq (fallback) |
+| Memory | ChromaDB · Sentence Transformers (all-MiniLM-L6-v2) |
+| Retrieval | Semantic Scholar API · arXiv API |
+| Validation | Pydantic · JSON Schema outputs |
+| Orchestration | Custom state-based pipeline · LangGraph planned |
+| Frontend | Streamlit — Pipeline dashboard + metrics UI |
+| Language | Python 3.10+ |
 
 </div>
 
@@ -119,7 +179,7 @@ The **Synthesis Agent** is the core intelligence layer — where the system tran
 
 ## Known Limitations
 
-The system currently reasons over **abstracts**, not full papers — limiting deep experimental understanding. Retrieval is **lexical**, not semantic — conceptually similar papers with different terminology are under-recalled. The Critic Agent evaluates but does not yet **autonomously trigger refinement**. Evaluation metrics are heuristic rather than learned.
+The system reasons over **abstracts**, not full papers — limiting deep experimental comparison. Retrieval is **lexical**, not semantic — under-recalls conceptually similar work with different terminology. The Critic Agent evaluates but does not yet **autonomously trigger synthesis re-runs**. Synthesis is currently single-pass with no iterative refinement loop.
 
 These are known constraints — each maps directly to the next development phase.
 
@@ -128,38 +188,35 @@ These are known constraints — each maps directly to the next development phase
 ## What's Next
 
 ```
-→  Semantic retrieval via embedding-based search
-→  Critic-driven refinement loop (Critic triggers Synthesis re-runs)
-→  Persistent knowledge memory — JSON/SQLite before vector DB
+→  Recursive synthesis repair — Critic triggers targeted re-synthesis
+→  Confidence-threshold driven retrieval loops
 →  Full-paper reasoning beyond abstract-only analysis
-→  LangGraph orchestration with conditional routing and retry nodes
-→  Quantitative evaluation framework for synthesis quality
-→  Citation-grounded synthesis with academic formatting
+→  Semantic retrieval replacing lexical scoring
+→  LangGraph orchestration with conditional routing
+→  MCP-compatible agent architecture
+→  Autonomous research refinement loops
 ```
 
 ---
 
 ## Design Philosophy
 
-The architecture was built without heavy orchestration frameworks intentionally — to develop a deep understanding of state flow, retry logic, evaluation patterns, and agent interaction **before** abstracting them away.
+The architecture was built without heavy orchestration frameworks intentionally — to deeply understand state flow, retry logic, evaluation patterns, and agent interaction before abstracting them away.
 
-One realization: useful AI systems are not primarily about prompting. As systems scale, the hard problems become **orchestration**, **reliability**, **state management**, and **grounded reasoning** — as critical as model capability itself.
+The biggest realization: building useful AI systems is not about prompting. The hard problems are **memory**, **orchestration**, **reliability**, and **state management**. Those concerns are as critical as model capability itself.
 
 ---
 
 <div align="center">
 
-## Author
+<br/>
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://bhoomika-ai-portfolio.vercel.app/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bhoomikagoel111)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/bhoomikagoel24)
-[![Email](https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:bhoomikagoel24@gmail.com)
+**Bhoomika Goel**
 
-**Bhoomika Goel** · AI/ML Engineer · Agentic Systems · Research Automation
+*AI/ML Engineering · Agentic Systems · Research Automation*
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=7C6AF7&height=100&section=footer" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" />
 
 </div>
