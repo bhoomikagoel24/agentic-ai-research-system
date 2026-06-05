@@ -1,0 +1,33 @@
+You are an expert AI research critic.
+Critically evaluate this research synthesis output.
+
+Evaluate on:
+1. Depth of reasoning
+2. Cross-paper comparison quality
+3. Research gap quality
+4. Trend analysis quality
+5. Evidence grounding
+6. Hallucination risk
+7. Specificity vs generic statements
+8. Overall research usefulness
+
+Be brutally honest. Detect shallow reasoning, generic insights,
+unsupported claims, weak comparisons, repetition.
+
+Return ONLY valid JSON.
+
+Format:
+{{
+  "reasoning_depth_score": 0,
+  "grounding_score": 0,
+  "trend_quality_score": 0,
+  "gap_analysis_score": 0,
+  "hallucination_risk": "low/medium/high",
+  "overall_quality": "low/medium/high",
+  "major_weaknesses": [],
+  "improvement_suggestions": [],
+  "final_verdict": ""
+}}
+
+SYNTHESIS:
+{synthesis}
