@@ -1,8 +1,12 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=Agentic%20Research%20Synthesis%20System&fontSize=30&fontColor=ffffff&fontAlignY=38&desc=Multi-Agent%20%C2%B7%20Persistent%20Memory%20%C2%B7%20Cross-Paper%20Reasoning%20%C2%B7%20Reliability-First&descAlignY=57&descSize=13&animation=fadeIn" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=ResearchMind%20AI&fontSize=42&fontColor=ffffff&fontAlignY=36&desc=Autonomous%20Multi-Agent%20Research%20Intelligence%20System&descAlignY=55&descSize=15&animation=fadeIn" />
 
 <br/>
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&pause=1200&color=7C6AF7&center=true&vCenter=true&width=700&lines=Persistent+Semantic+Memory+%C2%B7+Cross-Paper+Reasoning;Multi-Agent+Orchestration+%C2%B7+Critique-Guided+Synthesis;Beyond+RAG+%C2%B7+Beyond+Summarization" alt="Typing SVG" />
+
+<br/><br/>
 
 [![Python](https://img.shields.io/badge/Python_3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://deepmind.google/gemini)
@@ -10,8 +14,11 @@
 [![ChromaDB](https://img.shields.io/badge/ChromaDB-Memory-22C55E?style=for-the-badge&logoColor=white)](https://www.trychroma.com)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 
+<br/>
+
 [![arXiv](https://img.shields.io/badge/arXiv_API-B31B1B?style=flat-square)](https://arxiv.org)
 [![Semantic Scholar](https://img.shields.io/badge/Semantic_Scholar-097AE9?style=flat-square)](https://api.semanticscholar.org)
+[![Sentence Transformers](https://img.shields.io/badge/Sentence_Transformers-all--MiniLM--L6--v2-8B5CF6?style=flat-square)]()
 [![LangGraph](https://img.shields.io/badge/LangGraph-planned-6B46C1?style=flat-square)](https://langchain-ai.github.io/langgraph)
 [![Status](https://img.shields.io/badge/Status-Active_Development-F59E0B?style=flat-square)]()
 [![License](https://img.shields.io/badge/License-MIT-7C6AF7?style=flat-square)](LICENSE)
@@ -35,7 +42,7 @@
 
 Most research tools either retrieve and summarize — or rely on a single LLM prompt to do everything.
 
-This system does neither. It decomposes the research task into **specialized coordinated agents**, each with a focused responsibility. It introduces **persistent semantic memory** so the system remembers and reuses previous work across sessions. And it performs **cross-paper reasoning** — not just per-paper summarization — to surface trends, contradictions, gaps, and comparative insights that no single prompt could produce.
+**ResearchMind AI** does neither. It decomposes the research task into **specialized coordinated agents**, each with a focused responsibility. It introduces **persistent semantic memory** so the system remembers and reuses previous work across sessions. And it performs **cross-paper reasoning** — not just per-paper summarization — to surface trends, contradictions, gaps, and comparative insights that no single prompt could produce.
 
 The result is a research pipeline that gets meaningfully faster and more efficient with every run.
 
@@ -44,7 +51,7 @@ The result is a research pipeline that gets meaningfully faster and more efficie
 ## System Architecture
 
 <p align="center">
-  <img src="assets/architecture_preview.png" width="920" alt="System Architecture"/>
+  <img src="assets/architecture_preview.png" width="920" alt="ResearchMind AI — System Architecture"/>
 </p>
 
 <p align="center">
@@ -86,7 +93,7 @@ The result is a research pipeline that gets meaningfully faster and more efficie
 
 ## Memory Architecture
 
-This is one of the most important parts of the system. Every run that starts from scratch wastes tokens, time, and API quota. The system solves this with a **two-layer optimization strategy**.
+One of the strongest aspects of ResearchMind AI. Every run that starts from scratch wastes tokens, time, and API quota. The system solves this with a **two-layer optimization strategy**.
 
 ### Layer 1 — In-Session Cache
 
@@ -100,11 +107,12 @@ Covers: query cache · summary cache · critique cache · formatter cache
 
 ### Layer 2 — Persistent Semantic Memory
 
-Built on ChromaDB and Sentence Transformers (`all-MiniLM-L6-v2`). Survives Streamlit restarts, terminal closes, and system reboots.
+Built on ChromaDB and Sentence Transformers (`all-MiniLM-L6-v2`).
+Survives Streamlit restarts, terminal closes, and system reboots.
 
 ```
-Today   → generate summary → close Streamlit
-Tomorrow → same topic → similarity search → memory reuse → no regeneration
+Today    →  generate summary  →  close Streamlit
+Tomorrow →  same topic        →  similarity search  →  memory reuse  →  no regeneration
 ```
 
 Three memory stores run in parallel:
@@ -113,19 +121,19 @@ Three memory stores run in parallel:
 |---|---|
 | **Planner Memory** | Reuse past research plans for similar topics — stabilizes query generation |
 | **Paper Memory** | Semantic retrieval of previously fetched papers — reduces external API calls |
-| **Summary Memory** | If similarity > threshold → reuse existing summary · else → regenerate |
+| **Summary Memory** | similarity > threshold → reuse · else → regenerate |
 
 ---
 
 ## Reasoning Capabilities
 
-The Synthesis Agent is the core intelligence layer — where the system transitions from information extraction to genuine knowledge synthesis.
+The **Synthesis Agent** is the core intelligence layer — where ResearchMind AI transitions from information extraction to genuine knowledge synthesis.
 
 ```
-Isolated summaries          →    Cross-paper reasoning
-Per-paper extraction        →    Trend detection across the literature
-Independent findings        →    Contradiction and agreement analysis
-Basic output                →    Research gap discovery + future directions
+Isolated summaries     →    Cross-paper reasoning
+Per-paper extraction   →    Trend detection across the literature
+Independent findings   →    Contradiction and agreement analysis
+Basic output           →    Research gap discovery + future directions
 ```
 
 ---
@@ -148,13 +156,13 @@ Basic output                →    Research gap discovery + future directions
 ## Reliability Engineering
 
 ```
-Retry Logic          →  Exponential backoff with jitter on all LLM and API calls
-Query Expansion      →  Adaptive broadening when retrieval quality falls below threshold
-Fallback Routing     →  Auto-switches to Groq if Gemini fails
-State Persistence    →  Shared state dict — any stage reruns independently
-JSON Validation      →  Structured output validated at every stage
-Deduplication        →  URL-based + title similarity filtering
-DEV_MODE             →  Lightweight path for fast, low-cost experimentation
+Retry Logic        →  Exponential backoff with jitter on all LLM and API calls
+Query Expansion    →  Adaptive broadening when retrieval quality falls below threshold
+Fallback Routing   →  Auto-switches to Groq if Gemini fails
+State Persistence  →  Shared state dict — any stage reruns independently
+JSON Validation    →  Structured output validated at every stage
+Deduplication      →  URL-based + title similarity filtering
+DEV_MODE           →  Lightweight path for fast, low-cost experimentation
 ```
 
 ---
@@ -201,9 +209,9 @@ These are known constraints — each maps directly to the next development phase
 
 ## Design Philosophy
 
-The architecture was built without heavy orchestration frameworks intentionally — to deeply understand state flow, retry logic, evaluation patterns, and agent interaction before abstracting them away.
+ResearchMind AI was built without heavy orchestration frameworks intentionally — to deeply understand state flow, retry logic, evaluation patterns, and agent interaction **before** abstracting them away.
 
-The biggest realization: building useful AI systems is not about prompting. The hard problems are **memory**, **orchestration**, **reliability**, and **state management**. Those concerns are as critical as model capability itself.
+The biggest realization: building useful AI systems is not about prompting. The hard problems are **memory**, **orchestration**, **reliability**, and **state management** — as critical as model capability itself.
 
 ---
 
@@ -217,6 +225,6 @@ The biggest realization: building useful AI systems is not about prompting. The 
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" />
 
 </div>
