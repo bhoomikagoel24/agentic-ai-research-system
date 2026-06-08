@@ -9,6 +9,10 @@ from research_agent_system.schemas import PaperSummary
 from research_agent_system.tools.llm_tool import call_llm
 from research_agent_system.utils.validators import extract_json
 
+from research_agent_system.memory.memory_manager import (
+    MemoryManager
+)
+
 
 SUMMARY_PROMPT = """
 You are a research paper analysis agent.
@@ -44,6 +48,11 @@ Abstract:
 
 
 class SummarizerAgent(BaseAgent):
+
+    def __init__(self, cfg):
+
+        super().__init__(cfg)
+        self.memory = MemoryManager()
 
     def run(
         self,
@@ -129,7 +138,7 @@ class SummarizerAgent(BaseAgent):
                         "\n\n========== RAW LLM ==========\n"
                     )
 
-                    print(raw)
+                    self.logger.info(raw)
 
                     print(
                         "\n=============================\n"
@@ -183,6 +192,11 @@ class SummarizerAgent(BaseAgent):
 
                     summaries.append(summary)
 
+                    # Memory save 
+                    self.memory.save_summary(
+                        paper=p,
+                        summary=summary.model_dump()
+                    )
                     # =================================
                     # CACHE SAVE
                     # =================================

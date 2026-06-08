@@ -12,6 +12,9 @@ from research_agent_system.utils.exception import (
     ResearchAgentException
 )
 
+from research_agent_system.memory.memory_manager import (
+    MemoryManager
+)
 
 PLANNER_PROMPT = """
 You are a research planning agent.
@@ -93,6 +96,43 @@ class PlannerAgent(BaseAgent):
         self,
         topic: str
     ) -> ResearchPlan:
+        
+        memory = MemoryManager()
+
+        memory_results = memory.search_memory(
+            topic,
+            top_k=1
+        )
+
+        for result in memory_results:
+
+            similarity = result.get(
+                "similarity",
+                0
+            )
+
+            if similarity > 0.92:
+
+                try:
+
+                    data = json.loads(
+                        result["document"]
+                    )
+
+                    if (
+                        isinstance(data, dict)
+                        and "search_queries" in data
+                        and "sub_questions" in data
+                    ):
+
+                        self.logger.info(
+                            "Reusing planner memory"
+                        )
+
+                        return ResearchPlan(**data)
+
+                except Exception:
+                    pass
 
         prompt = PLANNER_PROMPT.format(
             topic=topic
@@ -182,6 +222,19 @@ class PlannerAgent(BaseAgent):
                             "Planner finalized"
                         )
 
+                        plan_data = {
+                            "sub_questions":
+                                plan.sub_questions,
+
+                            "search_queries":
+                                queries
+                        }
+
+                        memory.save_plan(
+                            topic,
+                            plan_data
+                        )
+
                         return ResearchPlan(
                             sub_questions=(
                                 plan.sub_questions
@@ -215,6 +268,19 @@ class PlannerAgent(BaseAgent):
                 )
 
                 time.sleep(2 ** i)
+
+        plan_data = {
+            "sub_questions":
+                plan.sub_questions,
+
+            "search_queries":
+                queries
+        }
+
+        memory.save_plan(
+            topic,
+            plan_data
+        ) 
 
         raise ResearchAgentException(
             "Planner failed after all retries",
