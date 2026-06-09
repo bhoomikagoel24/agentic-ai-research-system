@@ -1,3 +1,84 @@
-structure_help.txt
+# ---------------- Python ----------------
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# ---------------- Virtual Environments ----------------
+
+agent/
+venv/
+env/
+.venv/
+
+# ---------------- Packaging ----------------
+
+build/
+dist/
+*.egg-info/
+*.egg
+
+# ---------------- Environment Variables ----------------
+
 .env
+.env.*
+
+# ---------------- Jupyter Notebook ----------------
+
+.ipynb_checkpoints/
+
+# ---------------- Logs ----------------
+
+logs/
+*.log
+
+# ---------------- Cache / Memory ----------------
+
+cache/
+memory/chroma_db/
+.cache/
+.temp/
+*.tmp
+
+# ---------------- Generated Data ----------------
+
+data/
+state.json
+
+# ---------------- Testing / Experimental ----------------
+
+TESTING/
+NOTEBOOK/
+notebooks/
+
+test_*.py
+x.py
+a.sh
 helper.txt
+structure_help.txt
+
+# ---------------- Streamlit ----------------
+
+.streamlit/
+
+# ---------------- OS Files ----------------
+
+.DS_Store
+Thumbs.db
+
+# ---------------- IDE / Editor ----------------
+
+.vscode/
+.idea/
+
+# ---------------- Coverage ----------------
+
+.coverage
+htmlcov/
+
+# ---------------- Database ----------------
+
+*.sqlite3
+
+
+HIT_and_TRY/
