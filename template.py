@@ -46,12 +46,11 @@ list_of_files = [
     f"{project_name}/prompts/__init__.py",
 
     f"{project_name}/prompts/planner_prompt.txt",     
-    f"{project_name}/prompts/research_prompt.txt",
-    f"{project_name}/prompts/filter_prompt.txt",
+    f"{project_name}/prompts/planner_eval_prompt.txt",     
     f"{project_name}/prompts/summary_prompt.txt",
     f"{project_name}/prompts/synthesis_prompt.txt",     
     f"{project_name}/prompts/critic_prompt.txt",        
-    f"{project_name}/prompts/format_prompt.txt",
+    f"{project_name}/prompts/formatter_prompt.txt",
 
     # ---------------- SCHEMAS (VERY IMPORTANT) ---------------- #
     f"{project_name}/schemas/__init__.py",
@@ -63,6 +62,7 @@ list_of_files = [
     f"{project_name}/utils/helpers.py",
     f"{project_name}/utils/logger.py",
     f"{project_name}/utils/validators.py",
+    f"{project_name}/utils/exception.py",
 
     # ---------------- DATA ---------------- #
     f"{project_name}/data/raw_papers.json",
@@ -91,6 +91,7 @@ list_of_files = [
     "main.py",
     "requirements.txt",
     ".env",
+    "app.py",
     ".gitignore",
     "README.md",
 ]
