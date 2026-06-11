@@ -31,6 +31,7 @@
 <br/>
 
 **[→ Full Visual Documentation](https://bhoomikagoel24.github.io/agentic-ai-research-system)**
+**[→ Pipeline Execution Evidence](https://bhoomikagoel24.github.io/agentic-ai-research-system/pipeline_showcase.html)**
 
 <br/>
 
