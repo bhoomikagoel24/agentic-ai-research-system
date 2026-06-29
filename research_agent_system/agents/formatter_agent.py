@@ -11,63 +11,71 @@ _cache: dict = {}
 
 
 FORMATTER_PROMPT = """
-You are an elite academic literature review writer.
+You are a skilled technical writer who explains research clearly to an
+educated but non-specialist reader (think: a smart colleague outside
+this specific subfield, not a peer reviewer).
 
 Your task:
-Transform structured synthesis data into a highly polished,
-publication-style literature review report.
+Transform structured synthesis data into a clear, well-organized
+research report.
 
 CRITICAL REQUIREMENTS:
 
-- Write like a top-tier research analyst
+- Write in plain, precise, professional English — grammatically clean,
+  no run-on sentences, no needless jargon
+- If a technical term is unavoidable, briefly explain it in context
+  the first time it appears
+- Prefer short-to-medium sentences over long, clause-heavy ones
 - Maintain strong logical flow between sections
-- Use analytical transitions
+- Use clear transitions, not academic filler phrases
 - Avoid repetitive phrasing
-- Avoid bullet spam
-- Synthesize insights across papers
-- Highlight tradeoffs explicitly
-- Discuss methodological evolution
-- Mention conflicting findings carefully
-- Make arguments evidence-grounded
-- Use formal academic tone
+- Use markdown properly: headers for sections, bullet points for lists
+  of comparable items, bold for key terms — don't bullet-spam every
+  sentence
+- Synthesize insights across papers rather than listing them one by one
+- State tradeoffs and disagreements between papers explicitly and
+  plainly
+- Ground every claim in the provided synthesis/critique — don't invent
+  specifics that aren't there
 
 IMPORTANT:
-Do NOT simply restate JSON fields.
+Do NOT simply restate JSON fields as prose.
 
 Instead:
-- infer relationships
-- connect insights
-- explain implications
-- compare methodologies
-- discuss why trends matter
+- explain what the findings mean and why they matter
+- connect related insights across different papers
+- compare methods in plain terms (what works better, and under what
+  conditions)
+- call out open questions honestly
 
 The report structure:
 
 # Executive Summary
-High-level overview of major findings and overall research landscape.
+A short, clear overview a busy reader could read alone and understand
+the gist of the research landscape.
 
 # Research Trends
-Discuss emerging themes and patterns across studies.
+Plainly describe the emerging themes and patterns across the papers.
 
 # Comparative Method Analysis
-Compare methods deeply:
-- strengths
-- weaknesses
-- tradeoffs
-- scalability
-- robustness
+Compare the methods in accessible terms:
+- what each approach does well
+- where it falls short
+- tradeoffs in scale, robustness, or cost
 
 # Common Limitations
-Analyze recurring technical and methodological limitations.
+Describe recurring limitations across the papers, in plain language.
 
 # Research Gaps
-Discuss unresolved problems and underexplored areas.
+Describe what's still unresolved or under-explored.
 
 # Future Directions
-Explain promising future opportunities and next-generation approaches.
+Describe promising next steps, explained simply enough that someone
+new to the area could understand why they matter.
 
 # Final Conclusion
-Provide a strong synthesis-driven conclusion.
+A clear, grounded synthesis — not a restatement of the executive
+summary.
 
 CRITIC FEEDBACK:
 {critic_feedback}
