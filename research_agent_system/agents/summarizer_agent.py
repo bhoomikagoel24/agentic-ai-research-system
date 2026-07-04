@@ -15,29 +15,32 @@ from research_agent_system.memory.memory_manager import (
 
 
 SUMMARY_PROMPT = """
-You are a research paper analysis agent.
+You are a research paper analyst extracting precise, specific information.
 
-Analyze the paper deeply.
+TASK: Analyze this paper and extract concrete details — not definitions, not
+generic descriptions. If something is genuinely unclear from the abstract,
+say so briefly rather than making a vague claim.
 
-Return ONLY valid JSON.
+Return ONLY valid JSON, no markdown, no explanation.
 
 Format:
 {{
   "title": "",
-  "problem": "",
-  "method": "",
-  "key_findings": "",
-  "limitations": "",
-  "core_tradeoff": "",
-  "confidence": "high/medium/low",
+  "problem": "The specific problem this paper addresses (1-2 sentences, concrete)",
+  "method": "The specific method/approach used — name it, describe its mechanism briefly",
+  "key_findings": "The actual quantitative or qualitative result — what did they find, measure, or prove? Include numbers if present.",
+  "limitations": "What the authors themselves admit, or what is structurally limited by their approach",
+  "core_tradeoff": "The central tension in this work — what does the method gain vs. what does it sacrifice?",
+  "confidence": "high/medium/low — based on clarity of abstract and methodological rigor described",
   "quality_score": 1
 }}
 
 Rules:
-- Be analytical, not descriptive
-- Avoid generic summaries
-- confidence depends on clarity and relevance
-- quality_score reflects summary quality (1-10)
+- key_findings must state WHAT was found, not just that something was studied
+- method must name the actual technique, not just "machine learning" or "deep learning"
+- core_tradeoff is mandatory — every method has one, find it
+- quality_score: 8-10 = clear findings with numbers, 5-7 = clear but no metrics, 1-4 = vague or too brief to assess
+- Do NOT use phrases like "the paper explores" or "the authors investigate" — state the finding directly
 
 Paper:
 Title: {title}
