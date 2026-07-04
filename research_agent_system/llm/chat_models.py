@@ -36,34 +36,42 @@ PRIMARY_MODEL = "gemini-2.5-flash"
 FALLBACK_MODEL = "llama-3.3-70b-versatile"
 
 
-def _primary_model(temperature: float = 0.2) -> ChatGoogleGenerativeAI:
+def _primary_model(temperature: float = 0.2, max_output_tokens: int = 2048) -> ChatGoogleGenerativeAI:
     return ChatGoogleGenerativeAI(
         model=PRIMARY_MODEL,
         google_api_key=GOOGLE_API_KEY,
         temperature=temperature,
+        max_output_tokens=max_output_tokens,  # was unbounded — real cost/runaway-output risk
+        max_retries=6,  # this is langchain-google-genai's own default, kept explicit
     )
 
 
-def _fallback_model(temperature: float = 0.2) -> ChatGroq:
+def _fallback_model(temperature: float = 0.2, max_tokens: int = 2048) -> ChatGroq:
     return ChatGroq(
         model=FALLBACK_MODEL,
         api_key=GROQ_API_KEY,
         temperature=temperature,
+        max_tokens=max_tokens,  # was unbounded
+        max_retries=4,  # bumped from the default of 2 — Groq is now also the
+                         # landing spot for concurrent summarizer calls, so it
+                         # needs more headroom against transient rate limits
     )
 
 
-def get_chat_llm(temperature: float = 0.2):
+def get_chat_llm(temperature: float = 0.2, max_tokens: int = 4096):
     """
     Plain free-text chat model (used by the Formatter, and by the
     ReAct research sub-agent). Gemini first, Groq automatically if
-    Gemini raises (rate limit, timeout, empty response, etc).
+    Gemini raises (rate limit, timeout, empty response, etc) — and
+    each of those already retries internally before giving up.
+    max_tokens bounds output length/cost; 4096 covers a full report.
     """
-    primary = _primary_model(temperature)
-    fallback = _fallback_model(temperature)
+    primary = _primary_model(temperature, max_output_tokens=max_tokens)
+    fallback = _fallback_model(temperature, max_tokens=max_tokens)
     return primary.with_fallbacks([fallback])
 
 
-def get_structured_llm(schema: type[BaseModel], temperature: float = 0.2):
+def get_structured_llm(schema: type[BaseModel], temperature: float = 0.2, max_tokens: int = 2048):
     """
     Chat model bound to a Pydantic schema via with_structured_output.
     Replaces extract_json(raw, model=Schema) from utils/validators.py.
@@ -71,6 +79,6 @@ def get_structured_llm(schema: type[BaseModel], temperature: float = 0.2):
     Both the primary and the fallback are bound to the same schema,
     so the fallback is a true drop-in if Gemini fails mid-call.
     """
-    primary = _primary_model(temperature).with_structured_output(schema)
-    fallback = _fallback_model(temperature).with_structured_output(schema)
+    primary = _primary_model(temperature, max_output_tokens=max_tokens).with_structured_output(schema)
+    fallback = _fallback_model(temperature, max_tokens=max_tokens).with_structured_output(schema)
     return primary.with_fallbacks([fallback])
