@@ -4,6 +4,8 @@
 
 <br/><br/>
 
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=16&pause=1200&color=7C6AF7&center=true&vCenter=true&width=700&lines=Persistent+Semantic+Memory+%C2%B7+Cross-Paper+Reasoning;Multi-Agent+Orchestration+%C2%B7+Critique-Guided+Synthesis;Beyond+RAG+%C2%B7+Beyond+Summarization" alt="Typing SVG" />
+
 ### Autonomous Research Intelligence Agent
 
 A multi-agent pipeline that turns a research topic into a synthesized, self-critiqued literature review — retrieval through final report, end to end.
@@ -20,8 +22,14 @@ A multi-agent pipeline that turns a research topic into a synthesized, self-crit
 [Architecture](#architecture) · [System at a Glance](#system-at-a-glance) · [Engineering Decisions](#engineering-decisions) · [Quick Start](#quick-start) · [Limitations](#limitations--known-constraints)
 
 <br/>
+> *Beyond retrieval. Beyond summarization. Toward autonomous research intelligence.*
 
-**Topic → Planner → Research → Summarization → Synthesis → Critique → Report**
+<br/>
+
+**[→ Full Visual Documentation](https://bhoomikagoel24.github.io/agentic-ai-research-system)**
+**[→ Pipeline Execution Evidence](https://bhoomikagoel24.github.io/agentic-ai-research-system/pipeline_showcase.html)**
+
+<br/>
 
 </div>
 
