@@ -35,12 +35,15 @@ _memory = MemoryManager()
 
 
 @tool
-def search_arxiv(query: str, limit: int = 2) -> str:
+def search_arxiv(query: str, limit: int = 8) -> str:
     """
     Search arXiv for research papers matching a query.
     Returns a JSON-encoded list of papers, each with
     title, abstract, year, url, authors, source.
     Use this for preprints and CS/ML-heavy topics.
+    For broad or fast-moving topics, pass a higher limit
+    (e.g. 10-15) to get fuller coverage; use a lower limit
+    (3-5) for narrow, specific queries.
     """
     try:
         papers = fetch_from_arxiv(query, limit)
@@ -51,12 +54,15 @@ def search_arxiv(query: str, limit: int = 2) -> str:
 
 
 @tool
-def search_semantic_scholar(query: str, limit: int = 2) -> str:
+def search_semantic_scholar(query: str, limit: int = 8) -> str:
     """
     Search Semantic Scholar for research papers matching a query.
     Returns a JSON-encoded list of papers, each with
     title, abstract, year, url, authors, source.
     Use this for peer-reviewed / cross-discipline coverage.
+    For broad or fast-moving topics, pass a higher limit
+    (e.g. 10-15) to get fuller coverage; use a lower limit
+    (3-5) for narrow, specific queries.
     """
     try:
         papers = fetch_from_semantic_scholar(query, limit)
