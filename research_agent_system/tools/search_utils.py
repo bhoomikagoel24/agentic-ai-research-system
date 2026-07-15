@@ -35,7 +35,7 @@ def compute_recency_score(paper: dict) -> float:
     return 1 / (1 + max(0, 2025 - year))
 
 
-def filter_papers(papers: list[dict], queries: list[str]) -> list[dict]:
+def filter_papers(papers: list[dict], queries: list[str], keep: int = 60) -> list[dict]:
     scored = []
     for p in papers:
         if not p.get("abstract") or len(p["abstract"]) < 100:
@@ -44,7 +44,11 @@ def filter_papers(papers: list[dict], queries: list[str]) -> list[dict]:
         p["recency_score"]   = compute_recency_score(p)
         scored.append(p)
     scored.sort(key=lambda x: x["relevance_score"], reverse=True)
-    return scored[:min(10, len(scored))]
+    # was hardcoded to min(10, ...) — that silently capped every report at
+    # 10 papers regardless of the UI's Top-K setting. Now keeps a generous
+    # candidate pool; the actual final count is decided by cfg.topk at the
+    # call site in nodes.py, which is the control the user can see and set.
+    return scored[:min(keep, len(scored))]
 
 
 def rank_papers(papers: list[dict]) -> list[dict]:
