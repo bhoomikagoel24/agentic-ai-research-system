@@ -5,14 +5,17 @@ from research_agent_system.utils.logger import get_logger
 
 logger = get_logger(__name__)
 _cache: dict = {}
+_call_count: int = 0  # read by benchmark/run_experiments.py APICallTracker
 
 
 def fetch_from_arxiv(query: str, limit: int = 2) -> list[dict]:
+    global _call_count
     key = f"{query}_{limit}"
     if key in _cache:
         logger.info("arXiv: cache hit")
         return _cache[key]
 
+    _call_count += 1
     for attempt in range(3):
         try:
             search = arxiv.Search(
