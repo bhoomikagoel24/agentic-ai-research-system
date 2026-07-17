@@ -14,8 +14,9 @@ from langchain_groq import ChatGroq
 
 from research_agent_system.config.settings import GOOGLE_API_KEY, GROQ_API_KEY
 
-PRIMARY_MODEL  = "gemini-2.5-flash"
-FALLBACK_MODEL = "llama-3.3-70b-versatile"
+PRIMARY_MODEL   = "gemini-2.5-flash"
+FALLBACK_MODEL  = "llama-3.3-70b-versatile"
+TERTIARY_MODEL  = "llama-3.1-8b-instant"    # separate 100K TPD — kicks in when 70B exhausted
 
 # ── Rate limiter ──────────────────────────────────────────────────────────────
 # Gemini free tier: ~10-20 RPM.  Groq free tier: 30 RPM.
@@ -134,15 +135,29 @@ def _fallback_model(temperature: float = 0.2, max_tokens: int = 2048):
     )
 
 
+def _tertiary_model(temperature: float = 0.2, max_tokens: int = 2048):
+    """Groq Llama 3.1 8B — separate 100K TPD from the 70B model.
+    Used when both Gemini AND Llama 3.3 70B are exhausted."""
+    return ChatGroq(
+        model=TERTIARY_MODEL,
+        api_key=GROQ_API_KEY,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        max_retries=3,
+    )
+
+
 def get_chat_llm(temperature: float = 0.2, max_tokens: int = 4096):
-    primary  = _primary_model(temperature, max_output_tokens=max_tokens)
-    fallback = _fallback_model(temperature, max_tokens=max_tokens)
-    return primary.with_fallbacks([fallback])
+    primary   = _primary_model(temperature, max_output_tokens=max_tokens)
+    fallback  = _fallback_model(temperature, max_tokens=max_tokens)
+    tertiary  = _tertiary_model(temperature, max_tokens=max_tokens)
+    return primary.with_fallbacks([fallback, tertiary])
 
 
 def get_structured_llm(schema: type[BaseModel], temperature: float = 0.2, max_tokens: int = 2048):
-    primary  = _primary_model(temperature, max_output_tokens=max_tokens).with_structured_output(schema)
-    fallback = _fallback_model(temperature, max_tokens=max_tokens).with_structured_output(schema)
-    return primary.with_fallbacks([fallback])
+    primary   = _primary_model(temperature, max_output_tokens=max_tokens).with_structured_output(schema)
+    fallback  = _fallback_model(temperature, max_tokens=max_tokens).with_structured_output(schema)
+    tertiary  = _tertiary_model(temperature, max_tokens=max_tokens).with_structured_output(schema)
+    return primary.with_fallbacks([fallback, tertiary])
 
 
