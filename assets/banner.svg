@@ -1,0 +1,59 @@
+<svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1020"/>
+      <stop offset="100%" stop-color="#151233"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C6AF7"/>
+      <stop offset="100%" stop-color="#4285F4"/>
+    </linearGradient>
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7C6AF7" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#7C6AF7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bg)"/>
+
+  <!-- faint dot grid texture -->
+  <g fill="#ffffff" opacity="0.04">
+    <g id="dotrow">
+      <circle cx="20" cy="20" r="1.4"/><circle cx="60" cy="20" r="1.4"/><circle cx="100" cy="20" r="1.4"/>
+      <circle cx="140" cy="20" r="1.4"/><circle cx="180" cy="20" r="1.4"/><circle cx="220" cy="20" r="1.4"/>
+      <circle cx="260" cy="20" r="1.4"/><circle cx="300" cy="20" r="1.4"/><circle cx="340" cy="20" r="1.4"/>
+      <circle cx="380" cy="20" r="1.4"/><circle cx="420" cy="20" r="1.4"/><circle cx="460" cy="20" r="1.4"/>
+    </g>
+    <use href="#dotrow" y="40"/><use href="#dotrow" y="80"/><use href="#dotrow" y="120"/>
+    <use href="#dotrow" y="160"/><use href="#dotrow" y="200"/><use href="#dotrow" y="240"/><use href="#dotrow" y="280"/>
+  </g>
+
+  <!-- left: wordmark -->
+  <g transform="translate(70,0)">
+    <text x="0" y="140" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="72" font-weight="700" fill="#F5F5FA" letter-spacing="4">ARIA</text>
+    <rect x="4" y="158" width="230" height="4" rx="2" fill="url(#accent)"/>
+    <text x="0" y="190" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="500" fill="#C9CBE0">Autonomous Research Intelligence Agent</text>
+    <text x="0" y="222" font-family="'Fira Code', 'Courier New', monospace" font-size="15" fill="#8A8DB0">structured retrieval · cross-paper reasoning · self-critiqued synthesis</text>
+  </g>
+
+  <!-- right: abstract pipeline / node graph motif -->
+  <g transform="translate(760,0)">
+    <!-- connecting path with one feedback loop, echoing the critic->synthesis retry -->
+    <path d="M 20 150 L 100 90 L 180 150 L 260 90 L 260 210 L 180 150" fill="none" stroke="#4B4E82" stroke-width="2"/>
+    <path d="M 260 210 Q 320 230 340 150" fill="none" stroke="#7C6AF7" stroke-width="2" stroke-dasharray="4 5"/>
+    <path d="M 340 150 L 400 150" fill="none" stroke="#4B4E82" stroke-width="2"/>
+
+    <circle cx="20" cy="150" r="26" fill="url(#nodeGlow)"/>
+    <circle cx="20" cy="150" r="9" fill="#EDEBFF"/>
+    <circle cx="100" cy="90" r="8" fill="#B9B4F5"/>
+    <circle cx="180" cy="150" r="8" fill="#9C93EE"/>
+    <circle cx="260" cy="90" r="8" fill="#8177E8"/>
+    <circle cx="260" cy="210" r="10" fill="#6A5CE0"/>
+    <circle cx="340" cy="150" r="10" fill="#4285F4"/>
+    <circle cx="400" cy="150" r="26" fill="url(#nodeGlow)"/>
+    <circle cx="400" cy="150" r="9" fill="#EDEBFF"/>
+
+    <text x="0" y="255" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#7A7DA0" letter-spacing="1">TOPIC</text>
+    <text x="378" y="255" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#7A7DA0" letter-spacing="1">REPORT</text>
+  </g>
+</svg>

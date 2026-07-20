@@ -8,9 +8,14 @@ from research_agent_system.memory.vector_store import (
 
 class MemoryManager:
 
+    _shared_store = None
+
     def __init__(self):
 
-        self.store = VectorStore()
+        if MemoryManager._shared_store is None:
+            MemoryManager._shared_store = VectorStore()
+
+        self.store = MemoryManager._shared_store
 
     def save_plan(
         self,
