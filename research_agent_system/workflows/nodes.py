@@ -321,7 +321,19 @@ def synthesis_node(state: ResearchState) -> dict:
     if weaknesses:
         prompt += (
             "\n\nA prior critique flagged these weaknesses — address them "
-            f"directly this time:\n{json.dumps(weaknesses[:3], indent=2)}"
+            f"directly this time:\n{json.dumps(weaknesses[:3], indent=2)}\n\n"
+
+            "Revise the previous synthesis.\n"
+            "Do NOT regenerate it from scratch.\n"
+            "Preserve all correct reasoning and conclusions.\n\n"
+
+            "For every weakness:\n"
+            "- Explain how it has been addressed.\n"
+            "- Improve cross-paper comparisons.\n"
+            "- Strengthen evidence grounding.\n"
+            "- Remove unsupported or generic claims.\n"
+            "- Expand research gaps where necessary.\n"
+            "- Ensure the revised synthesis is more specific, coherent, and evidence"
         )
 
     synthesis_llm = get_structured_llm(SynthesisOutput, max_tokens=3000)
@@ -364,7 +376,7 @@ def route_after_critic(state: ResearchState) -> Literal["synthesis", "formatter"
     critique = state.get("critique", {})
     retries = state.get("critique_retries", 0)
 
-    if critique.get("major_weaknesses") and retries < MAX_CRITIC_REFINEMENTS:
+    if critique.get("is_revision_required") and retries < MAX_CRITIC_REFINEMENTS:
         return "synthesis"
     return "formatter"
 
