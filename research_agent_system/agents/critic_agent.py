@@ -41,11 +41,20 @@ Format:
 {{
   "reasoning_depth_score": 0,
   "grounding_score": 0,
-  "trend_quality_score": 0,
+  "comparison_quality_score": 0,
   "gap_analysis_score": 0,
-  "hallucination_risk": "low/medium/high",
-  "overall_quality": "low/medium/high",
-  "major_weaknesses": [],
+  "overall_score": 0,
+
+  "is_revision_required": true,
+
+  "major_weaknesses": [
+    {
+      "section": "",
+      "problem": "",
+      "rewrite_instruction": ""
+    }
+  ],
+
   "improvement_suggestions": [],
   "final_verdict": ""
 }}
