@@ -40,6 +40,14 @@ CRITICAL RULES:
 - No markdown, no explanation outside the JSON
 - No empty lists — if a category genuinely doesn't apply, write one entry explaining why
 
+IF CRITIQUE FEEDBACK IS PROVIDED:
+- Revise the previous synthesis instead of generating a completely new one.
+- Preserve all correct reasoning and conclusions.
+- Address every weakness identified in the critique.
+- Strengthen evidence grounding and cross-paper comparisons.
+- Remove unsupported or generic claims.
+- Improve research gaps and future directions where applicable.
+
 Return ONLY valid JSON.
 
 Format:
